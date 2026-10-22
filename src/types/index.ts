@@ -109,3 +109,8 @@ export interface ConsentExportState {
   includeRawDiaryNotes: boolean; // default false for granular privacy
   notesToPsychologist: string;
 }
+
+export type UserAgeCategory = 'under-18' | '18-21' | '22-24' | 'above-24';
+
+export type ThemeMode = 'green' | 'lavender';
+

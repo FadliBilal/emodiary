@@ -1,20 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MoodState, MoodEntry } from '../../types';
+import { MoodState, MoodEntry, ThemeMode } from '../../types';
 import { MOOD_DEFINITIONS, ESM_CONTEXT_TAGS } from '../../data/emodiaryData';
 import { Mic, MicOff, PenTool, Sparkles, Check, Clock, Play, Pause, ShieldCheck, ArrowRight, ArrowLeft } from 'lucide-react';
 
 interface RecordPillarProps {
   entries: MoodEntry[];
+  theme?: ThemeMode;
   onAddEntry: (newEntry: MoodEntry) => void;
   onNavigateToTab: (tab: 'journey' | 'understand' | 'support' | 'connect') => void;
 }
 
 export const RecordPillar: React.FC<RecordPillarProps> = ({
   entries,
+  theme = 'green',
   onAddEntry,
   onNavigateToTab,
 }) => {
   const [selectedMood, setSelectedMood] = useState<MoodState>('overwhelmed');
+  const isGreen = theme === 'green';
+  const primaryBtnClass = isGreen
+    ? 'bg-[#115E59] hover:bg-[#0F766E] text-white'
+    : 'bg-[#6D28D9] hover:bg-[#5B21B6] text-white';
+  const badgeClass = isGreen
+    ? 'text-[#115E59] bg-emerald-50 border-emerald-200'
+    : 'text-[#6D28D9] bg-purple-50 border-purple-200';
   const [selectedContexts, setSelectedContexts] = useState<string[]>([
     'Skripsi & Tugas Akhir',
     'Kurang Tidur (<4 jam)',
@@ -190,8 +199,8 @@ export const RecordPillar: React.FC<RecordPillarProps> = ({
     <div className="space-y-6 sm:space-y-8 w-full max-w-full min-w-0">
       {/* Modern Header with 1-Sentence Guide */}
       <div className="space-y-2.5 sm:space-y-3">
-        <div className="text-[11px] font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md inline-block">
-          Langkah 1 dari 4: Mood Diary
+        <div className={`text-[11px] font-bold px-2.5 py-1 rounded-md inline-block border ${badgeClass}`}>
+          Buku Harian & Jurnal Suara Pribadi
         </div>
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight break-words">
           Catat Apa yang Kamu Rasakan Hari Ini
@@ -534,9 +543,9 @@ export const RecordPillar: React.FC<RecordPillarProps> = ({
 
         <button
           onClick={() => onNavigateToTab('understand')}
-          className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#0F766E] hover:bg-[#115E59] text-white font-semibold text-xs sm:text-sm transition-all shadow-xs flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
+          className={`w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-xs flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${primaryBtnClass}`}
         >
-          <span>Lanjut ke Langkah 2: Lihat Pola Perasaan (Weekly Mood Journey)</span>
+          <span>Lanjut ke Proses 1: Lihat Pola Perasaan (Weekly Mood Journey)</span>
           <ArrowRight className="w-4 h-4 shrink-0" />
         </button>
       </div>

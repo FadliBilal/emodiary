@@ -6,6 +6,8 @@ import { UnderstandPillar } from './components/pillars/UnderstandPillar';
 import { SupportPillar } from './components/pillars/SupportPillar';
 import { ConnectPillar } from './components/pillars/ConnectPillar';
 import { UnifiedJourneyView } from './components/pillars/UnifiedJourneyView';
+import { OnboardingModal } from './components/modals/OnboardingModal';
+import { QuickMoodModal } from './components/modals/QuickMoodModal';
 import { JudgePitchDrawer } from './components/modals/JudgePitchDrawer';
 import { EthicalPrivacyModal } from './components/modals/EthicalPrivacyModal';
 import { BreathingModal } from './components/modals/BreathingModal';
@@ -23,6 +25,14 @@ export function App() {
     entries,
     consecutiveNegativeDays,
     addEntry,
+    theme,
+    setTheme,
+    isOnboardingOpen,
+    setIsOnboardingOpen,
+    userAgeCategory,
+    setUserAgeCategory,
+    isQuickMoodOpen,
+    setIsQuickMoodOpen,
     isPitchOpen,
     setIsPitchOpen,
     isEthicsOpen,
@@ -37,8 +47,12 @@ export function App() {
     setSelectedPsychologist,
   } = useEmoDiary();
 
+  const isGreen = theme === 'green';
+  const rootBgClass = isGreen ? 'bg-[#F2F6F3] theme-green' : 'bg-[#F6F4FA] theme-lavender';
+  const selectionClass = isGreen ? 'selection:bg-emerald-100 selection:text-emerald-900' : 'selection:bg-purple-100 selection:text-purple-900';
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-teal-100 selection:text-teal-900 overflow-x-hidden w-full max-w-[100vw]">
+    <div className={`min-h-screen ${rootBgClass} text-slate-900 flex flex-col font-sans ${selectionClass} overflow-x-hidden w-full max-w-[100vw] transition-colors duration-200`}>
       {/* Streamlined Serene Header */}
       <TopBar
         activeScenarioId={activeScenarioId}
@@ -48,6 +62,10 @@ export function App() {
         }}
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        theme={theme}
+        onToggleTheme={() => setTheme(isGreen ? 'lavender' : 'green')}
+        onOpenQuickMood={() => setIsQuickMoodOpen(true)}
+        onOpenOnboarding={() => setIsOnboardingOpen(true)}
         onOpenPitchDrawer={() => setIsPitchOpen(true)}
         onOpenEthicsModal={() => setIsEthicsOpen(true)}
       />
@@ -59,16 +77,12 @@ export function App() {
             scenario={currentScenario}
             entries={entries}
             consecutiveNegativeDays={consecutiveNegativeDays}
-            onNavigateToTab={setActiveTab}
+            theme={theme}
+            userAgeCategory={userAgeCategory}
+            onNavigateToTab={(tab) => setActiveTab(tab)}
+            onOpenQuickMood={() => setIsQuickMoodOpen(true)}
             onOpenBreathingModal={() => setIsBreathingOpen(true)}
-          />
-        )}
-
-        {activeTab === 'record' && (
-          <RecordPillar
-            entries={entries}
-            onAddEntry={addEntry}
-            onNavigateToTab={setActiveTab}
+            onOpenOnboarding={() => setIsOnboardingOpen(true)}
           />
         )}
 
@@ -77,6 +91,7 @@ export function App() {
             entries={entries}
             consecutiveNegativeDays={consecutiveNegativeDays}
             clinicalRiskLevel={currentScenario.clinicalRiskLevel}
+            theme={theme}
             onNavigateToTab={setActiveTab}
           />
         )}
@@ -84,6 +99,7 @@ export function App() {
         {activeTab === 'support' && (
           <SupportPillar
             latestEntry={entries[entries.length - 1]}
+            theme={theme}
             onOpenBreathingModal={() => setIsBreathingOpen(true)}
             onNavigateToConnect={() => setActiveTab('connect')}
             onNavigateToTab={setActiveTab}
@@ -94,20 +110,39 @@ export function App() {
           <ConnectPillar
             entries={entries}
             consecutiveNegativeDays={consecutiveNegativeDays}
+            theme={theme}
             onOpenClinicalSummary={(opts) => setSummaryOptions(opts)}
             onSelectPsychologistForBooking={(p) => setSelectedPsychologist(p)}
+            onNavigateToTab={setActiveTab}
+          />
+        )}
+
+        {activeTab === 'record' && (
+          <RecordPillar
+            entries={entries}
+            theme={theme}
+            onAddEntry={addEntry}
             onNavigateToTab={setActiveTab}
           />
         )}
       </main>
 
       {/* Clean Modern Footnote */}
-      <footer className="border-t border-slate-200 py-5 px-4 text-center text-xs text-slate-500 bg-white w-full max-w-[100vw]">
+      <footer className="border-t border-slate-200/80 py-5 px-4 text-center text-xs text-slate-500 bg-white/80 backdrop-blur-xs w-full max-w-[100vw]">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span className="font-medium text-slate-700">
-            Universitas 17 Agustus 1945 Surabaya • Inovasi Kesehatan Mental Digital 2026
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-slate-700">
+              Universitas 17 Agustus 1945 Surabaya • Inovasi Kesehatan Mental Digital 2026
+            </span>
+          </div>
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsOnboardingOpen(true)}
+              className="hover:text-slate-900 underline transition-colors cursor-pointer min-h-[36px] flex items-center"
+            >
+              Tinjauan Usia & Etika
+            </button>
+            <span>•</span>
             <button
               onClick={() => setIsEthicsOpen(true)}
               className="hover:text-slate-900 underline transition-colors cursor-pointer min-h-[36px] flex items-center"
@@ -131,6 +166,26 @@ export function App() {
           </div>
         </div>
       </footer>
+
+      {/* Flo Health Style Onboarding Modal */}
+      <OnboardingModal
+        isOpen={isOnboardingOpen}
+        theme={theme}
+        initialAgeCategory={userAgeCategory}
+        onComplete={(age) => {
+          setUserAgeCategory(age);
+          setIsOnboardingOpen(false);
+        }}
+        onClose={() => setIsOnboardingOpen(false)}
+      />
+
+      {/* Quick Mood Check-in Modal */}
+      <QuickMoodModal
+        isOpen={isQuickMoodOpen}
+        theme={theme}
+        onClose={() => setIsQuickMoodOpen(false)}
+        onAddEntry={addEntry}
+      />
 
       {/* Modals & Slide-overs */}
       <JudgePitchDrawer

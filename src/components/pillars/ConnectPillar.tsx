@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Psychologist, ConsentExportState, MoodEntry } from '../../types';
+import { Psychologist, ConsentExportState, MoodEntry, ThemeMode } from '../../types';
 import { VERIFIED_PSYCHOLOGISTS } from '../../data/emodiaryData';
 import { FileText, Calendar, Lock, PhoneCall, ExternalLink, ShieldCheck, ArrowLeft, RotateCcw } from 'lucide-react';
 
 interface ConnectPillarProps {
   entries: MoodEntry[];
   consecutiveNegativeDays: number;
+  theme?: ThemeMode;
   onOpenClinicalSummary: (options: ConsentExportState) => void;
   onSelectPsychologistForBooking: (psychologist: Psychologist) => void;
   onNavigateToTab?: (tab: 'journey' | 'support') => void;
@@ -14,10 +15,19 @@ interface ConnectPillarProps {
 export const ConnectPillar: React.FC<ConnectPillarProps> = ({
   entries,
   consecutiveNegativeDays,
+  theme = 'green',
   onOpenClinicalSummary,
   onSelectPsychologistForBooking,
   onNavigateToTab,
 }) => {
+  const isGreen = theme === 'green';
+  const primaryBtnClass = isGreen
+    ? 'bg-[#115E59] hover:bg-[#0F766E] text-white'
+    : 'bg-[#6D28D9] hover:bg-[#5B21B6] text-white';
+  const badgeClass = isGreen
+    ? 'text-[#115E59] bg-emerald-50 border-emerald-200'
+    : 'text-[#6D28D9] bg-purple-50 border-purple-200';
+
   const [consentOptions, setConsentOptions] = useState<ConsentExportState>({
     includeMoodTrajectory: true,
     includeStressorTags: true,
@@ -40,8 +50,8 @@ export const ConnectPillar: React.FC<ConnectPillarProps> = ({
     <div className="space-y-6 sm:space-y-8 w-full max-w-full min-w-0">
       {/* Modern Header with 1-Sentence Guide */}
       <div className="space-y-2.5 sm:space-y-3">
-        <div className="text-[11px] font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md inline-block">
-          Langkah 4 dari 4: Bantuan Profesional & Konseling
+        <div className={`text-[11px] font-bold px-2.5 py-1 rounded-md inline-block border ${badgeClass}`}>
+          Proses 3 dari 3: Bantuan Konselor Kampus
         </div>
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight break-words">
           Terhubung dengan Psikolog & Konselor (Talk to a Professional)
@@ -214,15 +224,15 @@ export const ConnectPillar: React.FC<ConnectPillarProps> = ({
           className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 shrink-0" />
-          <span>Kembali ke Langkah 3: Teman Cerita & Napas</span>
+          <span>Kembali ke Proses 2: Teman Cerita & Napas</span>
         </button>
 
         <button
           onClick={() => (onNavigateToTab ? onNavigateToTab('journey') : null)}
-          className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#0F766E] hover:bg-[#115E59] text-white font-semibold text-sm transition-all shadow-xs flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
+          className={`w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-sm transition-all shadow-xs flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${primaryBtnClass}`}
         >
           <RotateCcw className="w-4 h-4 shrink-0" />
-          <span>Selesai: Kembali ke Ringkasan Alur Lengkap</span>
+          <span>Selesai: Kembali ke Alur Lengkap</span>
         </button>
       </div>
     </div>

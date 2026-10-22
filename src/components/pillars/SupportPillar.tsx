@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { MoodEntry, ReflectiveMessage, PsychoeducationModule } from '../../types';
+import { MoodEntry, ReflectiveMessage, PsychoeducationModule, ThemeMode } from '../../types';
 import { PSYCHOEDUCATION_MODULES } from '../../data/emodiaryData';
 import { Wind, Send, ShieldCheck, BookOpen, ArrowRight, ArrowLeft } from 'lucide-react';
 
 interface SupportPillarProps {
   latestEntry?: MoodEntry;
+  theme?: ThemeMode;
   onOpenBreathingModal: () => void;
   onNavigateToConnect: () => void;
-  onNavigateToTab?: (tab: 'understand' | 'connect') => void;
+  onNavigateToTab?: (tab: 'understand' | 'connect' | 'journey') => void;
 }
 
 export const SupportPillar: React.FC<SupportPillarProps> = ({
   latestEntry,
+  theme = 'green',
   onOpenBreathingModal,
   onNavigateToConnect,
   onNavigateToTab,
@@ -20,6 +22,14 @@ export const SupportPillar: React.FC<SupportPillarProps> = ({
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [selectedModule, setSelectedModule] = useState<PsychoeducationModule | null>(null);
+
+  const isGreen = theme === 'green';
+  const primaryBtnClass = isGreen
+    ? 'bg-[#115E59] hover:bg-[#0F766E] text-white'
+    : 'bg-[#6D28D9] hover:bg-[#5B21B6] text-white';
+  const badgeClass = isGreen
+    ? 'text-[#115E59] bg-emerald-50 border-emerald-200'
+    : 'text-[#6D28D9] bg-purple-50 border-purple-200';
 
   useEffect(() => {
     const entrySnippet = latestEntry?.textNote
@@ -111,8 +121,8 @@ export const SupportPillar: React.FC<SupportPillarProps> = ({
     <div className="space-y-6 sm:space-y-8 w-full max-w-full min-w-0">
       {/* Modern Header with 1-Sentence Guide */}
       <div className="space-y-2.5 sm:space-y-3">
-        <div className="text-[11px] font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md inline-block">
-          Langkah 3 dari 4: Dukungan Emosional
+        <div className={`text-[11px] font-bold px-2.5 py-1 rounded-md inline-block border ${badgeClass}`}>
+          Proses 2 dari 3: Teman Refleksi & Napas
         </div>
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight break-words">
           Teman Refleksi Ceritamu (Your Reflective Companion)
@@ -220,7 +230,7 @@ export const SupportPillar: React.FC<SupportPillarProps> = ({
 
             <button
               onClick={onOpenBreathingModal}
-              className="w-full py-3 rounded-xl bg-[#0F766E] hover:bg-[#115E59] text-white font-semibold text-xs sm:text-sm transition-all shadow-xs min-h-[44px] flex items-center justify-center cursor-pointer"
+              className={`w-full py-3 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-xs min-h-[44px] flex items-center justify-center cursor-pointer ${primaryBtnClass}`}
             >
               Mulai Latihan Napas Interaktif (2 Menit)
             </button>
@@ -228,7 +238,7 @@ export const SupportPillar: React.FC<SupportPillarProps> = ({
 
           <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 p-4 sm:p-6 lg:p-7 space-y-3 shadow-sm text-xs w-full min-w-0">
             <h3 className="font-bold text-sm sm:text-base text-slate-900 border-b border-slate-100 pb-2.5 flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-teal-700 shrink-0" />
+              <BookOpen className={`w-4 h-4 shrink-0 ${isGreen ? 'text-[#115E59]' : 'text-[#6D28D9]'}`} />
               <span>Tips & Bacaan Praktis Mahasiswa</span>
             </h3>
 
@@ -237,10 +247,10 @@ export const SupportPillar: React.FC<SupportPillarProps> = ({
                 <div
                   key={mod.id}
                   onClick={() => setSelectedModule(mod)}
-                  className="p-3 sm:p-3.5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-teal-600 transition-all cursor-pointer space-y-1 min-h-[44px] flex flex-col justify-center"
+                  className="p-3 sm:p-3.5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-400 transition-all cursor-pointer space-y-1 min-h-[44px] flex flex-col justify-center"
                 >
                   <div className="flex items-center justify-between text-[11px] text-slate-500">
-                    <span className="font-bold text-teal-700">{mod.badge}</span>
+                    <span className={`font-bold ${isGreen ? 'text-[#115E59]' : 'text-[#6D28D9]'}`}>{mod.badge}</span>
                     <span>{mod.estimatedReadTime}</span>
                   </div>
                   <h4 className="font-semibold text-xs sm:text-sm text-slate-900 leading-snug break-words">
@@ -260,14 +270,14 @@ export const SupportPillar: React.FC<SupportPillarProps> = ({
           className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 shrink-0" />
-          <span>Kembali ke Langkah 2: Lihat Pola</span>
+          <span>Kembali ke Proses 1: Pola Mingguan</span>
         </button>
 
         <button
           onClick={onNavigateToConnect}
-          className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#0F766E] hover:bg-[#115E59] text-white font-semibold text-sm transition-all shadow-xs flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
+          className={`w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-sm transition-all shadow-xs flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${primaryBtnClass}`}
         >
-          <span>Lanjut ke Langkah 4: Terhubung dengan Psikolog & Konselor (Talk to a Professional)</span>
+          <span>Lanjut ke Proses 3: Bantuan Konselor Kampus Untag</span>
           <ArrowRight className="w-4 h-4 shrink-0" />
         </button>
       </div>

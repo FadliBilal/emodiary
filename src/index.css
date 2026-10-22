@@ -45,6 +45,16 @@
   }
 }
 
+/* Theme Nuances (Soft Green Biophilic vs Soft Lavender) */
+.theme-green {
+  background-color: #F2F6F3;
+}
+
+.theme-lavender {
+  background-color: #F6F4FA;
+}
+
+
 /* Modern Minimalist Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;

@@ -1,11 +1,21 @@
 import { useState, useMemo, useCallback } from 'react';
-import { DemoScenarioId, MoodEntry, DemoScenario, ConsentExportState, Psychologist } from '../types';
+import { DemoScenarioId, MoodEntry, DemoScenario, ConsentExportState, Psychologist, UserAgeCategory, ThemeMode } from '../types';
 import { DEMO_SCENARIOS } from '../data/emodiaryData';
 
 export function useEmoDiary() {
   const [activeScenarioId, setActiveScenarioId] = useState<DemoScenarioId>('raka');
   const [scenarios, setScenarios] = useState<Record<string, DemoScenario>>(DEMO_SCENARIOS);
   const [activeTab, setActiveTab] = useState<'journey' | 'record' | 'understand' | 'support' | 'connect'>('journey');
+
+  // Theme Mode (Soft Green default or Soft Lavender)
+  const [theme, setTheme] = useState<ThemeMode>('green');
+
+  // Flo Health-style Onboarding State
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(true);
+  const [userAgeCategory, setUserAgeCategory] = useState<UserAgeCategory>('18-21');
+
+  // Quick Mood Check-in Modal
+  const [isQuickMoodOpen, setIsQuickMoodOpen] = useState(false);
 
   // Modals
   const [isPitchOpen, setIsPitchOpen] = useState(false);
@@ -74,6 +84,17 @@ export function useEmoDiary() {
     consecutiveNegativeDays,
     addEntry,
     resetScenario,
+    // Theme Mode
+    theme,
+    setTheme,
+    // Onboarding & Demographics
+    isOnboardingOpen,
+    setIsOnboardingOpen,
+    userAgeCategory,
+    setUserAgeCategory,
+    // Quick Mood Check-in Modal
+    isQuickMoodOpen,
+    setIsQuickMoodOpen,
     // Modals
     isPitchOpen,
     setIsPitchOpen,

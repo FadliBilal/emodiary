@@ -1,22 +1,33 @@
 import React, { useState } from 'react';
-import { MoodEntry } from '../../types';
+import { MoodEntry, ThemeMode } from '../../types';
 import { ArrowRight, ArrowLeft, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 interface UnderstandPillarProps {
   entries: MoodEntry[];
   consecutiveNegativeDays: number;
   clinicalRiskLevel: 'low' | 'moderate' | 'elevated';
-  onNavigateToTab: (tab: 'record' | 'support' | 'connect') => void;
+  theme?: ThemeMode;
+  onNavigateToTab: (tab: 'journey' | 'record' | 'support' | 'connect') => void;
 }
 
 export const UnderstandPillar: React.FC<UnderstandPillarProps> = ({
   entries,
   consecutiveNegativeDays,
   clinicalRiskLevel,
+  theme = 'green',
   onNavigateToTab,
 }) => {
   const [selectedNodeIndex, setSelectedNodeIndex] = useState<number | null>(entries.length - 1);
   const displayedEntries = entries.slice(-7);
+
+  const isGreen = theme === 'green';
+  const primaryColorHex = isGreen ? '#115E59' : '#6D28D9';
+  const primaryBtnClass = isGreen
+    ? 'bg-[#115E59] hover:bg-[#0F766E] text-white'
+    : 'bg-[#6D28D9] hover:bg-[#5B21B6] text-white';
+  const badgeClass = isGreen
+    ? 'text-[#115E59] bg-emerald-50 border-emerald-200'
+    : 'text-[#6D28D9] bg-purple-50 border-purple-200';
 
   const averageScore = (
     displayedEntries.reduce((acc, c) => acc + c.score, 0) / displayedEntries.length
@@ -73,8 +84,8 @@ export const UnderstandPillar: React.FC<UnderstandPillarProps> = ({
     <div className="space-y-6 sm:space-y-8 w-full max-w-full min-w-0">
       {/* Modern Header with 1-Sentence Guide */}
       <div className="space-y-2.5 sm:space-y-3">
-        <div className="text-[11px] font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md inline-block">
-          Langkah 2 dari 4: Pola Emosi Mingguan
+        <div className={`text-[11px] font-bold px-2.5 py-1 rounded-md inline-block border ${badgeClass}`}>
+          Proses 1 dari 3: Pola Emosi Mingguan
         </div>
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight break-words">
           Grafik Perjalanan Mood Mingguan (Weekly Mood Journey)
@@ -149,7 +160,7 @@ export const UnderstandPillar: React.FC<UnderstandPillarProps> = ({
                   <path
                     d={curvePath}
                     fill="none"
-                    stroke="#0F766E"
+                    stroke={primaryColorHex}
                     strokeWidth="2.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -316,18 +327,18 @@ export const UnderstandPillar: React.FC<UnderstandPillarProps> = ({
       {/* Prominent Next Step Navigation Bar at the Bottom */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-200 w-full min-w-0">
         <button
-          onClick={() => onNavigateToTab('record')}
+          onClick={() => onNavigateToTab('journey')}
           className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 shrink-0" />
-          <span>Kembali ke Langkah 1: Catat Mood</span>
+          <span>Kembali ke Alur Lengkap</span>
         </button>
 
         <button
           onClick={() => onNavigateToTab('support')}
-          className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#0F766E] hover:bg-[#115E59] text-white font-semibold text-xs sm:text-sm transition-all shadow-xs flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
+          className={`w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-xs sm:text-sm transition-all shadow-xs flex items-center justify-center gap-2 min-h-[44px] cursor-pointer ${primaryBtnClass}`}
         >
-          <span>Lanjut ke Langkah 3: Teman Refleksi Ceritamu (Your Reflective Companion)</span>
+          <span>Lanjut ke Proses 2: Teman Cerita & Napas</span>
           <ArrowRight className="w-4 h-4 shrink-0" />
         </button>
       </div>
