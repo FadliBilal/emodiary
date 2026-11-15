@@ -62,12 +62,8 @@ export function App() {
         }}
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        theme={theme}
-        onToggleTheme={() => setTheme(isGreen ? 'lavender' : 'green')}
         onOpenQuickMood={() => setIsQuickMoodOpen(true)}
-        onOpenOnboarding={() => setIsOnboardingOpen(true)}
         onOpenPitchDrawer={() => setIsPitchOpen(true)}
-        onOpenEthicsModal={() => setIsEthicsOpen(true)}
       />
 
       {/* Main Content Workspace with Fluid Responsive Sizing & min-w-0 Shrink Protection */}
