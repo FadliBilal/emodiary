@@ -89,9 +89,9 @@ export const UnifiedJourneyView: React.FC<UnifiedJourneyViewProps> = ({
 
       {/* Quick Check-in Banner (Flo Health Style Quick Action) */}
       <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${isGreen ? 'bg-emerald-100 text-[#115E59]' : 'bg-purple-100 text-[#6D28D9]'}`}>
-            <Sparkles className="w-5 h-5" />
+        <div className="flex items-center gap-3.5 min-w-0">
+          <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 p-1 flex items-center justify-center shadow-xs shrink-0 overflow-hidden">
+            <img src="/emodiary-icon.png" alt="Mascot EmoDiary" className="w-full h-full object-contain" />
           </div>
           <div className="min-w-0">
             <h2 className="font-bold text-sm sm:text-base text-slate-900">

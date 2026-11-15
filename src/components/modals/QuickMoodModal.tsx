@@ -200,13 +200,18 @@ export const QuickMoodModal: React.FC<QuickMoodModalProps> = ({
         
         {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-3.5">
-          <div className="min-w-0">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-teal-700 block">
-              Catatan Cepat Harian
-            </span>
-            <h2 className="text-lg sm:text-xl font-bold text-slate-900 truncate">
-              Bagaimana Perasaanmu Sekarang?
-            </h2>
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-10 h-10 rounded-2xl bg-white border border-slate-200/90 p-0.5 flex items-center justify-center shadow-xs shrink-0">
+              <img src="/emodiary-icon.png" alt="Logo EmoDiary" className="w-full h-full object-contain" />
+            </div>
+            <div className="min-w-0">
+              <span className={`text-[10px] font-bold uppercase tracking-wider block ${isGreen ? 'text-[#115E59]' : 'text-[#6D28D9]'}`}>
+                Catatan Cepat Harian
+              </span>
+              <h2 className="text-base sm:text-lg font-bold text-slate-900 truncate">
+                Bagaimana Perasaanmu Sekarang?
+              </h2>
+            </div>
           </div>
           <button
             type="button"

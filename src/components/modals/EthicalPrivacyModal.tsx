@@ -14,7 +14,9 @@ export const EthicalPrivacyModal: React.FC<EthicalPrivacyModalProps> = ({ isOpen
       <div className="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl w-[95vw] sm:w-full max-w-xl max-h-[85vh] overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-5 shadow-2xl text-xs sm:text-sm text-slate-900 mx-auto">
         <div className="flex items-start justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2.5 text-teal-700 min-w-0">
-            <ShieldCheck className="w-5 h-5 shrink-0" />
+            <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 p-0.5 flex items-center justify-center shadow-xs shrink-0">
+              <img src="/emodiary-icon.png" alt="Logo EmoDiary" className="w-full h-full object-contain" />
+            </div>
             <div className="min-w-0">
               <h3 className="font-bold text-base sm:text-lg text-slate-900 truncate">
                 Keamanan Data & Panduan Etika

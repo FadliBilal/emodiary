@@ -19,7 +19,9 @@ export const JudgePitchDrawer: React.FC<JudgePitchDrawerProps> = ({ isOpen, onCl
         <div className="space-y-4 sm:space-y-5">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3 sm:pb-4">
             <div className="flex items-center gap-2.5 text-teal-700 min-w-0">
-              <Award className="w-5 h-5 shrink-0" />
+              <div className="w-8 h-8 rounded-xl bg-white border border-slate-200 p-0.5 flex items-center justify-center shadow-xs shrink-0">
+                <img src="/emodiary-icon.png" alt="Logo" className="w-full h-full object-contain" />
+              </div>
               <div className="min-w-0">
                 <span className="font-bold text-sm sm:text-base text-slate-900 block truncate">
                   Info Lomba & Tim Peneliti
@@ -36,6 +38,18 @@ export const JudgePitchDrawer: React.FC<JudgePitchDrawerProps> = ({ isOpen, onCl
             >
               ✕
             </button>
+          </div>
+
+          {/* Official EmoDiary Brand Card */}
+          <div className="bg-gradient-to-b from-teal-50/70 via-white to-slate-50 p-4 sm:p-5 rounded-2xl border border-teal-100/90 flex flex-col items-center text-center space-y-2">
+            <img
+              src="/emodiary-logo-tight.png"
+              alt="Logo Resmi EmoDiary"
+              className="h-24 sm:h-28 object-contain drop-shadow-xs"
+            />
+            <div className="text-[11px] text-slate-500 font-semibold tracking-wide">
+              Track • Understand • Take Care • Untag Surabaya 2026
+            </div>
           </div>
 
           {/* Paper Info */}

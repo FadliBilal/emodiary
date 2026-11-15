@@ -81,12 +81,12 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
         {/* Step Indicator Header */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-4">
           <div className="flex items-center gap-2.5">
-            <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm ${badgeClass}`}>
-              E
+            <div className="w-9 h-9 rounded-xl bg-white border border-slate-200/90 p-0.5 flex items-center justify-center shadow-xs shrink-0">
+              <img src="/emodiary-icon.png" alt="Logo EmoDiary" className="w-full h-full object-contain" />
             </div>
             <div>
-              <span className="font-bold text-sm text-slate-900 block leading-tight">EMODIARY</span>
-              <span className="text-[11px] text-slate-500">Pendamping Kesehatan Emosional Mahasiswa</span>
+              <span className="font-extrabold text-sm text-slate-900 block leading-tight">EMODIARY</span>
+              <span className="text-[11px] text-slate-500">Track • Understand • Take Care</span>
             </div>
           </div>
 
@@ -104,6 +104,15 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
         {/* STEP 1: Tinjauan Usia (Flo Health Style) */}
         {step === 1 && (
           <div className="space-y-5 animate-in fade-in duration-150">
+            {/* Visual Brand Welcome */}
+            <div className="flex justify-center -mt-1 pb-1">
+              <img
+                src="/emodiary-logo-tight.png"
+                alt="EmoDiary Logo"
+                className="h-24 sm:h-28 object-contain drop-shadow-xs"
+              />
+            </div>
+
             <div className="space-y-1.5">
               <span className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border inline-block ${badgeClass}`}>
                 Langkah 1 dari 2: Tinjauan Usia

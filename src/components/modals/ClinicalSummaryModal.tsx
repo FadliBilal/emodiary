@@ -60,16 +60,21 @@ export const ClinicalSummaryModal: React.FC<ClinicalSummaryModalProps> = ({
 
         {/* Document Sheet */}
         <div className="bg-slate-50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 space-y-3.5 sm:space-y-4 text-xs w-full min-w-0">
-          <div className="border-b border-slate-900 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-            <div>
-              <span className="text-[10px] uppercase font-bold tracking-wider text-teal-700 block">
-                Pusat Layanan Bimbingan & Konseling Mahasiswa
-              </span>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">
-                LEMBAR RINGKASAN KONDISI MAHASISWA
-              </h3>
+          <div className="border-b border-slate-900 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 p-0.5 flex items-center justify-center shadow-xs shrink-0">
+                <img src="/emodiary-icon.png" alt="Logo" className="w-full h-full object-contain" />
+              </div>
+              <div>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-teal-700 block">
+                  EMODIARY • Layanan Konseling & Pendampingan Mental
+                </span>
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-0.5">
+                  LEMBAR RINGKASAN KONDISI MAHASISWA
+                </h3>
+              </div>
             </div>
-            <div className="text-[11px] text-slate-500 sm:text-right">
+            <div className="text-[11px] text-slate-500 sm:text-right font-medium">
               Universitas 17 Agustus 1945 Surabaya
             </div>
           </div>

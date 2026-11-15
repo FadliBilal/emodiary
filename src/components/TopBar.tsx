@@ -54,21 +54,25 @@ export const TopBar: React.FC<TopBarProps> = ({
       {/* Top Main Bar: Brand + Navigation + Action Controls */}
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2.5 sm:gap-3 min-w-0">
         
-        {/* Brand Left */}
+        {/* Brand Left with Official EmoDiary Logo */}
         <button
           onClick={() => onTabChange('journey')}
           className="flex items-center gap-2.5 text-left hover:opacity-90 transition-opacity shrink-0 cursor-pointer min-h-[44px]"
           aria-label="Kembali ke Alur Lengkap EmoDiary"
         >
-          <div className={`w-9 h-9 rounded-xl ${brandBg} text-white flex items-center justify-center font-bold text-sm shadow-xs shrink-0 transition-colors`}>
-            E
+          <div className="w-10 h-10 rounded-2xl bg-white border border-slate-200/80 p-0.5 flex items-center justify-center shadow-xs shrink-0 overflow-hidden">
+            <img
+              src="/emodiary-icon.png"
+              alt="Logo EmoDiary"
+              className="w-full h-full object-contain"
+            />
           </div>
           <div className="leading-tight hidden sm:block">
-            <span className="font-bold text-base tracking-tight text-slate-900 block">
+            <span className="font-extrabold text-base tracking-tight text-slate-900 block">
               EMODIARY
             </span>
-            <span className="text-[11px] text-slate-500 font-medium block whitespace-nowrap">
-              Untag Surabaya 2026
+            <span className="text-[10px] text-slate-500 font-medium block whitespace-nowrap">
+              Untag Surabaya 2026 • Track, Understand, Care
             </span>
           </div>
         </button>

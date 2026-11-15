@@ -131,8 +131,9 @@ export function App() {
       <footer className="border-t border-slate-200/80 py-5 px-4 text-center text-xs text-slate-500 bg-white/80 backdrop-blur-xs w-full max-w-[100vw]">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
+            <img src="/emodiary-icon.png" alt="EmoDiary" className="w-5 h-5 object-contain" />
             <span className="font-semibold text-slate-700">
-              Universitas 17 Agustus 1945 Surabaya • Inovasi Kesehatan Mental Digital 2026
+              EMODIARY • Universitas 17 Agustus 1945 Surabaya (2026)
             </span>
           </div>
           <div className="flex items-center gap-3">
